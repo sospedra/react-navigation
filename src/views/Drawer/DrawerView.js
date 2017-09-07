@@ -132,12 +132,21 @@ export default class DrawerView<T: *> extends PureComponent<void, Props, void> {
     const DrawerScreen = this.props.router.getComponentForRouteName(
       'DrawerClose'
     );
+    const options = this.props.router.getScreenOptions(
+      addNavigationHelpers({
+        state: this._screenNavigationProp.state,
+        dispatch: this._screenNavigationProp.dispatch,
+      }),
+      this.props.screenProps
+    );
+
     return (
       <DrawerLayout
         ref={(c: *) => {
           this._drawer = c;
         }}
         drawerWidth={this.props.drawerWidth}
+        drawerLockMode={options.drawerLockMode || 'unlocked'}
         onDrawerOpen={this._handleDrawerOpen}
         onDrawerClose={this._handleDrawerClose}
         renderNavigationView={this._renderNavigationView}
